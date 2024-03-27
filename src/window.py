@@ -21,7 +21,7 @@ class Line:
             fill=fill_color,
             width=2,
         )
-        canvas.pack()
+        canvas.pack(fill=BOTH, expand=1)
 
 
 class Window:
@@ -49,4 +49,42 @@ class Window:
 
     def close(self):
         self.running = False
+
+
+class Cell:
+    def __init__(self, x1, y1, x2, y2, win: Window):
+        self.has_left_wall = True
+        self.has_right_wall = True
+        self.has_top_wall = True
+        self.has_bottom_wall = True
+        self._x1 = x1
+        self._y1 = y1
+        self._x2 = x2
+        self._y2 = y2
+        self._win = win
+
+    def draw(self):
+        if self.has_left_wall:
+            left_wall = Line(
+                Point(self._x1 - 15, self._y1 - 15),
+                Point(self._x2 - 25, self._y2 + 15),
+            )
+            self._win.draw_line(left_wall, "green")
+        if self.has_right_wall:
+            right_wall = Line(
+                Point(self._x1 + 25, self._y1 - 15), Point(self._x2 + 15, self._y2 + 15)
+            )
+            self._win.draw_line(right_wall, "green")
+        if self.has_top_wall:
+            top_wall = Line(
+                Point(self._x1 - 15, self._y1 - 15),
+                Point(self._x2 + 15, self._y2 - 15),
+            )
+            self._win.draw_line(top_wall, "green")
+        if self.has_bottom_wall:
+            bottom_wall = Line(
+                Point(self._x1 - 15, self._y1 + 15),
+                Point(self._x2 + 15, self._y2 + 15),
+            )
+            self._win.draw_line(bottom_wall, "green")
 
