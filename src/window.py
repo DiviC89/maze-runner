@@ -67,12 +67,12 @@ class Cell:
         if self.has_left_wall:
             left_wall = Line(
                 Point(self._x1 - 15, self._y1 - 15),
-                Point(self._x2 - 25, self._y2 + 15),
+                Point(self._x2 - 15, self._y2 + 15),
             )
             self._win.draw_line(left_wall, "green")
         if self.has_right_wall:
             right_wall = Line(
-                Point(self._x1 + 25, self._y1 - 15), Point(self._x2 + 15, self._y2 + 15)
+                Point(self._x1 + 15, self._y1 - 15), Point(self._x2 + 15, self._y2 + 15)
             )
             self._win.draw_line(right_wall, "green")
         if self.has_top_wall:
@@ -87,4 +87,10 @@ class Cell:
                 Point(self._x2 + 15, self._y2 + 15),
             )
             self._win.draw_line(bottom_wall, "green")
+
+    def draw_move(self, to_cell, undo=False):
+        color = "red" if undo else "gray"
+        line = Line(Point(self._x1, self._y1), Point(to_cell._x1, to_cell._y1))
+        self._win.draw_line(line, color)
+
 
